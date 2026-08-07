@@ -6,12 +6,12 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GWQ77/ribao.git"
+    "url": "git+https://github.com/GWQ77/ribao-daily-report.git"
   },
   "bugs": {
-    "url": "https://github.com/GWQ77/ribao/issues"
+    "url": "https://github.com/GWQ77/ribao-daily-report/issues"
   },
-  "homepage": "https://github.com/GWQ77/ribao#readme",
+  "homepage": "https://github.com/GWQ77/ribao-daily-report#readme",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

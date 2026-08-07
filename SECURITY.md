@@ -2,14 +2,14 @@
 
 ## 支持范围
 
-当前仅支持最新发布版本（见 [Releases](https://github.com/GWQ77/ribao/releases)）。
+当前仅支持最新发布版本（见 [Releases](https://github.com/GWQ77/ribao-daily-report/releases)）。
 
 ## 报告漏洞
 
 「日报」的数据全部保存在本机，不涉及云端服务，但如果你发现安全相关问题，请按以下方式报告：
 
 - **不要**在公开 Issue 中直接贴出可利用的漏洞细节
-- 通过 [GitHub Issues](https://github.com/GWQ77/ribao/issues) 新建私密/安全相关的 Issue，或联系仓库维护者
+- 通过 [GitHub Issues](https://github.com/GWQ77/ribao-daily-report/issues) 新建私密/安全相关的 Issue，或联系仓库维护者
 - 请包含：受影响版本、漏洞描述、复现步骤、影响范围
 
 我们会尽快确认并修复，修复后会在 Release 中说明。

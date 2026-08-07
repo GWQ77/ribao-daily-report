@@ -6,7 +6,7 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/GWQ77/ribao.git
+git clone https://github.com/GWQ77/ribao-daily-report.git
 cd ribao
 
 # 2. 安装前端依赖
