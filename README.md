@@ -68,6 +68,10 @@ GitHub Actions 已配置：推送自动跑单测并构建 Windows exe，打 `v*`
 - 项目关键词归类规则、常用短语、姓名可在「设置」页配置
 - 周报导出前可在预览表格里直接修改、删除条目
 
+## 参与贡献
+
+欢迎提交 Issue 和 Pull Request，请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 与 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)。
+
 ## 目录结构
 
 ```

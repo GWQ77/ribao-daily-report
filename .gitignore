@@ -8,3 +8,9 @@ src-tauri/gen
 data
 .cache
 *.db
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*.log

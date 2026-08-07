@@ -4,6 +4,14 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GWQ77/ribao.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GWQ77/ribao/issues"
+  },
+  "homepage": "https://github.com/GWQ77/ribao#readme",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
