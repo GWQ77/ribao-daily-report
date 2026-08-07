@@ -34,7 +34,7 @@ jobs:
           workspaces: src-tauri
       - run: npm ci
       - run: npm run tauri build -- --no-bundle
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ribao-windows
           path: src-tauri/target/release/ribao.exe
