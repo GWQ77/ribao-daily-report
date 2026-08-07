@@ -1,0 +1,10 @@
+# Windows 批处理必须用 CRLF，否则 cmd 解析会出错
+*.bat text eol=crlf
+
+# 文本文件统一 UTF-8
+*.ts text eol=lf
+*.vue text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
