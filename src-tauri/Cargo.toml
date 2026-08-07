@@ -1,7 +1,7 @@
 [package]
 name = "ribao"
 version = "0.1.0"
-description = "便携日报工具"
+description = "便携日报工具：本地写日志、日历打卡，一键导出周报 Excel。数据全在本地。"
 license = "Apache-2.0"
 authors = ["GWQ77"]
 edition = "2021"
