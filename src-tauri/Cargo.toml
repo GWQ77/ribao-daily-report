@@ -2,6 +2,7 @@
 name = "ribao"
 version = "0.1.0"
 description = "便携日报工具"
+license = "Apache-2.0"
 authors = ["GWQ77"]
 edition = "2021"
 
