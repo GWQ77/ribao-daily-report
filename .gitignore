@@ -1,0 +1,10 @@
+node_modules
+dist
+release
+*.local
+src-tauri/target
+src-tauri/gen
+.DS_Store
+data
+.cache
+*.db

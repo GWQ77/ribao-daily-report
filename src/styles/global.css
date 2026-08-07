@@ -1,0 +1,359 @@
+/* ============================================================
+   全局样式 · 液玻璃布局 / 动态背景 / 材质工具类 / 动效
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-1);
+  background: var(--bg-gradient);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  user-select: none;
+  transition: background var(--dur-base) var(--ease-apple);
+}
+
+input,
+textarea,
+[contenteditable],
+.editor-pane,
+.editor-pane * {
+  user-select: text;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 动态光斑背景（液玻璃的"下层色彩"，实时折射浸染） ---------- */
+.app-root {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg-gradient);
+}
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.9;
+  transition: transform 6s var(--ease-apple);
+  will-change: transform;
+}
+.glow-1 {
+  width: 560px;
+  height: 560px;
+  background: var(--glow-1);
+  top: -160px;
+  left: -100px;
+}
+.glow-2 {
+  width: 500px;
+  height: 500px;
+  background: var(--glow-2);
+  bottom: -160px;
+  right: -80px;
+}
+.glow-3 {
+  width: 420px;
+  height: 420px;
+  background: var(--glow-3);
+  top: 28%;
+  left: 44%;
+}
+.glow-4 {
+  width: 380px;
+  height: 380px;
+  background: var(--glow-4);
+  bottom: 10%;
+  left: 4%;
+}
+/* 缓慢漂移，增强"活"的液体感 */
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, 45px) scale(1.1); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.03); }
+  50% { transform: translate(-60px, -35px) scale(0.95); }
+}
+.glow-1 { animation: drift-a 20s ease-in-out infinite; }
+.glow-2 { animation: drift-b 24s ease-in-out infinite; }
+.glow-3 { animation: drift-a 28s ease-in-out infinite reverse; }
+.glow-4 { animation: drift-b 32s ease-in-out infinite reverse; }
+
+/* ---------- 滚动条 ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 5px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---------- 布局外壳（减少留白，提升密度） ---------- */
+.app-shell {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.main-pane {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 20px 24px 28px;
+  scroll-behavior: smooth;
+}
+
+.main-pane > * {
+  max-width: 1280px;
+  margin-inline: auto;
+  min-height: 100%;
+}
+
+/* ---------- 液玻璃材质（全站统一） ---------- */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow);
+}
+.glass-strong {
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  backdrop-filter: var(--glass-blur-lg);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow-pop);
+}
+.glass-sidebar {
+  background: var(--glass-bg-sidebar);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* 顶部内高光 + 内壁光晕 */
+.glass,
+.glass-strong,
+.glass-sidebar {
+  position: relative;
+}
+.glass::before,
+.glass-strong::before,
+.glass-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: var(--glass-edge);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ---------- 视图入场动效（纯 CSS 动画，不依赖 rAF） ---------- */
+.main-pane > * {
+  animation: view-in 0.24s var(--ease-apple) both;
+}
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- 通用卡片（玻璃） ---------- */
+.app-card {
+  background: var(--bg-elevated);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow);
+  transition: box-shadow var(--dur-fast) var(--ease-apple),
+    transform var(--dur-fast) var(--ease-apple);
+}
+.app-card:hover {
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* ---------- 胶囊按钮 ---------- */
+.pill-btn {
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 18px;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-apple);
+  -webkit-tap-highlight-color: transparent;
+  text-shadow: var(--text-shadow);
+}
+.pill-btn:active {
+  transform: scale(0.97);
+}
+.pill-btn--primary {
+  background: linear-gradient(180deg, var(--accent-hover), var(--accent));
+  color: #fff;
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--accent) 45%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.pill-btn--primary:hover {
+  filter: brightness(1.06);
+}
+.pill-btn--ghost {
+  background: var(--bg-inset);
+  color: var(--text-1);
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+}
+.pill-btn--ghost:hover {
+  background: var(--bg-hover);
+}
+
+/* ---------- 空态 ---------- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 56px 0;
+  color: var(--text-3);
+}
+.empty-state .es-icon {
+  font-size: 48px;
+  opacity: 0.55;
+  filter: saturate(0.6);
+}
+.empty-state .es-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.empty-state .es-desc {
+  font-size: 13px;
+  max-width: 380px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ---------- 保存状态圆点 ---------- */
+.save-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.save-dot--saved {
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.5);
+  animation: pulse-dot 2.4s ease-out infinite;
+}
+.save-dot--saving {
+  background: var(--orange);
+}
+.save-dot--idle {
+  background: var(--text-3);
+  opacity: 0.5;
+}
+@keyframes pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(52, 199, 89, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 199, 89, 0);
+  }
+}
+
+/* ---------- 提醒浮层（玻璃强态） ---------- */
+.reminder-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  backdrop-filter: var(--glass-blur-lg);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow-pop);
+  animation: toast-in 0.35s var(--ease-apple);
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* 打印时 DOM 隐藏显示 */
+.print-only {
+  display: none;
+}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block;
+  }
+  body {
+    overflow: visible;
+  }
+}

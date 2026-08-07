@@ -1,0 +1,126 @@
+/* ============================================================
+   打印 / 导出 PDF
+   PrintDialog 渲染 .print-sheet 内容，window.print() 时
+   仅显示打印区，隐藏应用其余部分。
+   ============================================================ */
+
+.print-sheet {
+  font-size: 13px;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    overflow: visible !important;
+  }
+  body {
+    font-size: 12px;
+    color: #000;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .app-root,
+  #app {
+    display: block !important;
+    height: auto !important;
+  }
+
+  .print-sheet {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Naive UI modal 打印时铺满 */
+  .n-modal-mask,
+  .n-modal-mask::before {
+    display: none !important;
+    background: transparent !important;
+  }
+  .n-modal {
+    position: static !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+.print-sheet .ps-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+.print-sheet .ps-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+.print-sheet .ps-sub {
+  font-size: 12px;
+  color: #555;
+}
+
+.print-sheet article {
+  margin-bottom: 20px;
+  page-break-inside: avoid;
+}
+.print-sheet article h2 {
+  font-size: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+  margin: 14px 0 8px;
+  color: #000;
+}
+.print-sheet article .ps-meta {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 6px;
+}
+.print-sheet article p {
+  margin: 4px 0;
+  line-height: 1.6;
+  color: #000;
+}
+.print-sheet article li {
+  margin: 2px 0;
+  color: #000;
+}
+.print-sheet article ul,
+.print-sheet article ol {
+  padding-left: 20px;
+  margin: 4px 0;
+}
+.print-sheet article pre {
+  background: #f6f8fa;
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: #000;
+}
+.print-sheet article code {
+  font-family: var(--font-mono);
+}
+.print-sheet article blockquote {
+  border-left: 3px solid #ccc;
+  padding-left: 10px;
+  color: #555;
+  margin: 6px 0;
+}

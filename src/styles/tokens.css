@@ -1,0 +1,173 @@
+/* ============================================================
+   液玻璃设计系统 · Apple visionOS 风格（Frosted Glass）v2
+   玻璃参数统一在这里定义，各组件引用 --glass-* 令牌。
+   ============================================================ */
+:root {
+  /* 字体 */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text",
+    "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+
+  /* 形状 */
+  --radius-card: 20px;
+  --radius-inset: 13px;
+  --radius-field: 11px;
+  --radius-pill: 980px;
+
+  /* 动效 */
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+
+  /* 红绿灯 */
+  --tl-red: #ff5f57;
+  --tl-yellow: #febc2e;
+  --tl-green: #28c840;
+
+  /* 玻璃参数（更通透 → 模糊更可见） */
+  --glass-blur: blur(32px) saturate(190%);
+  --glass-blur-lg: blur(42px) saturate(200%);
+  --glass-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 10px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 var(--glass-edge),
+    inset 0 0 24px var(--glass-edge-soft);
+  --glass-shadow-hover:
+    0 4px 8px rgba(0, 0, 0, 0.07),
+    0 20px 52px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 var(--glass-edge),
+    inset 0 0 28px var(--glass-edge-soft);
+  --glass-shadow-pop:
+    0 10px 32px rgba(0, 0, 0, 0.16),
+    0 32px 80px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 var(--glass-edge),
+    inset 0 0 32px var(--glass-edge-soft);
+
+  /* 文字锐度 */
+  --text-shadow: none;
+}
+
+/* ---------------- 亮色：暖米白玻璃，边缘暖光折射 ---------------- */
+:root[data-theme='light'],
+:root[data-theme='auto'] {
+  color-scheme: light;
+
+  --bg: #faf9fc; /* 基础底色（被玻璃透出的暖调） */
+
+  --bg-elevated: rgba(255, 255, 255, 0.68); /* 玻璃底更白实 */
+  --bg-inset: rgba(120, 110, 160, 0.08);
+  --bg-hover: rgba(0, 0, 0, 0.05);
+  --bg-active: rgba(0, 0, 0, 0.09);
+
+  --border: rgba(255, 255, 255, 0.6);
+  --border-strong: rgba(0, 0, 0, 0.14);
+
+  --text-1: #1c1c1e;
+  --text-2: #48484a;
+  --text-3: #78787d;
+  --accent: #0071e3;
+  --accent-hover: #1d7ef0;
+  --accent-active: #0062c4;
+  --accent-soft: rgba(0, 113, 227, 0.12);
+  --green: #34c759;
+  --red: #ff3b30;
+  --yellow: #ffcc00;
+  --orange: #ff9500;
+  --purple: #af52de;
+  --holiday: #af52de; /* 法定节假日（紫） */
+  --holiday-soft: rgba(175, 82, 222, 0.13);
+  --workday: #0071e3; /* 调休上班（蓝） */
+  --workday-soft: rgba(0, 113, 227, 0.13);
+
+  /* 玻璃 */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.7);
+  --glass-bg-sidebar: rgba(255, 255, 255, 0.6);
+  --glass-edge: rgba(255, 255, 255, 0.7); /* 顶部柔亮线 */
+  --glass-edge-soft: rgba(255, 235, 255, 0.28); /* 内壁光晕（暖） */
+  --glass-border: rgba(255, 255, 255, 0.62);
+  --glass-border-strong: rgba(255, 255, 255, 0.85);
+
+  /* 背景渐变（底层丰富色域 → 玻璃折射内容） */
+  --bg-gradient:
+    radial-gradient(120% 80% at 15% 0%, #fff1f6 0%, transparent 55%),
+    radial-gradient(110% 90% at 90% 15%, #eef5ff 0%, transparent 60%),
+    radial-gradient(120% 100% at 60% 100%, #f4eeff 0%, transparent 55%),
+    linear-gradient(160deg, #ffffff 0%, #f8f9fd 45%, #fdfaff 100%);
+
+  /* 浅色下阴影减淡，避免卡片下方发灰 */
+  --glass-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 8px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 var(--glass-edge),
+    inset 0 0 20px var(--glass-edge-soft);
+  --glass-shadow-hover:
+    0 3px 6px rgba(0, 0, 0, 0.05),
+    0 16px 40px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 var(--glass-edge),
+    inset 0 0 24px var(--glass-edge-soft);
+
+  /* 背景光斑（更大、更饱和，液玻璃的动态浸染源） */
+  --glow-1: rgba(255, 176, 140, 0.5);
+  --glow-2: rgba(128, 178, 255, 0.5);
+  --glow-3: rgba(200, 150, 255, 0.45);
+  --glow-4: rgba(255, 150, 180, 0.4);
+
+  --text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* ---------------- 暗色：深蓝紫玻璃底，冷调折射 ---------------- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #15131c;
+
+  --bg-elevated: rgba(40, 36, 58, 0.44);
+  --bg-inset: rgba(255, 255, 255, 0.06);
+  --bg-hover: rgba(255, 255, 255, 0.07);
+  --bg-active: rgba(255, 255, 255, 0.11);
+
+  --border: rgba(255, 255, 255, 0.13);
+  --border-strong: rgba(255, 255, 255, 0.24);
+
+  --text-1: #f2f1f7;
+  --text-2: #b8b5c6;
+  --text-3: #8e8b9c;
+  --accent: #0a84ff;
+  --accent-hover: #3395ff;
+  --accent-active: #0969d6;
+  --accent-soft: rgba(10, 132, 255, 0.18);
+  --green: #30d158;
+  --red: #ff453a;
+  --yellow: #ffd60a;
+  --orange: #ff9f0a;
+  --purple: #bf5af2;
+  --holiday: #bf5af2;
+  --holiday-soft: rgba(191, 90, 242, 0.2);
+  --workday: #0a84ff;
+  --workday-soft: rgba(10, 132, 255, 0.2);
+
+  /* 玻璃 */
+  --glass-bg: rgba(30, 28, 44, 0.38);
+  --glass-bg-strong: rgba(36, 32, 54, 0.5);
+  --glass-bg-sidebar: rgba(28, 26, 42, 0.4);
+  --glass-edge: rgba(160, 170, 255, 0.2); /* 冷调紫蓝 */
+  --glass-edge-soft: rgba(120, 130, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.13);
+  --glass-border-strong: rgba(180, 190, 255, 0.22);
+
+  /* 背景渐变 */
+  --bg-gradient:
+    radial-gradient(120% 80% at 15% 0%, #2a1f4a 0%, transparent 55%),
+    radial-gradient(110% 90% at 90% 10%, #16294a 0%, transparent 60%),
+    radial-gradient(120% 100% at 60% 100%, #2a1a3a 0%, transparent 55%),
+    linear-gradient(160deg, #16141f 0%, #171a2a 45%, #1a1524 100%);
+
+  /* 背景光斑 */
+  --glow-1: rgba(150, 70, 255, 0.5);
+  --glow-2: rgba(60, 120, 255, 0.45);
+  --glow-3: rgba(255, 90, 180, 0.35);
+  --glow-4: rgba(40, 170, 200, 0.3);
+
+  --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
