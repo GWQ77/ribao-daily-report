@@ -40,7 +40,7 @@ jobs:
           path: src-tauri/target/release/ribao.exe
       - name: Publish Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: src-tauri/target/release/ribao.exe
           draft: true
